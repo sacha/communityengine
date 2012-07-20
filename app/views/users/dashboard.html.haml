@@ -1,11 +1,7 @@
 - @section = 'my_profile'
-
-=render :partial => "users/dashboard_nav"
-    
-
   
-#yui-main
-  .yui-b
+.row
+  .span9
     -box do 
       %h3= :greeting.l :name => @user.login
     
@@ -42,3 +38,4 @@
               %li
                 = link_to( "#{post.tag_for_first_image_in_body} #{truncate(post.display_title, :length => 75)} <span class='post_excerpt'>#{ truncate_words(post.post, 35, '...' )} (#{:by.l :login => post.user.login})</span>".html_safe, user_post_path(post.user, post), :title => :by.l(:login => post.user.login) )
                 
+  =render :partial => "users/dashboard_nav"

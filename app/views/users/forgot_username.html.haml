@@ -1,8 +1,5 @@
-.yui-b.sidebar
-  =render :partial => 'shared/login_sidebar'
-
-#yui-main
-  .yui-b.main_column
+.row
+  .span9
     -box do
       %h3=:forgot_your_username.l
 
@@ -11,3 +8,6 @@
         = text_field_tag 'email', nil, :size => 35
         %p
           = submit_tag :send_me_my_username.l
+
+  .span3
+    =render :partial => 'shared/login_sidebar'

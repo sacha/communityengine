@@ -12,61 +12,9 @@
     \! Add your contact info and Web site.
 
 
-.yui-b
 
-  = render :partial => 'profile_user_info_sidebar', :locals => {:user => @user}
-
-  - if @user.description
-    -box :id => "about_me" do
-      %h3
-        =:about_me.l
-      %p= @user.description.html_safe
-
-  -box :class => 'alt', :id => 'friends' do
-    %h3
-      =:my_friends.l
-      = link_to "(#{@friend_count})", accepted_user_friendships_path(@user) if @friend_count > 5
-    %p
-      = link_to "&raquo; #{:invite_a_friend.l :site => configatron.community_name}".html_safe, invite_user_path(@user) if @is_current_user
-      %br= link_to "&raquo; #{:view_all_my_friend_requests.l} (#{@pending_friendships_count})".html_safe, pending_user_friendships_path(@user) if @is_current_user
-    - @accepted_friendships.each do |user|
-      =render :partial => "users/sidebar_user", :locals => {:user => user}
-    -if @accepted_friendships.size > 4
-      %h6.all
-        =link_to :see_all.l, accepted_user_friendships_path(@user)
-
-  - unless @users_comments.empty?
-    -box :class => 'yui-g alt', :id => 'photo_comments' do
-      %h3=:my_recent_comments.l
-      - @users_comments.each do |comment|
-        %dl.vcard
-          %dt.photo
-            - if comment.recipient
-              = link_to image_tag(comment.recipient.avatar_photo_url(:thumb), :alt => "#{comment.recipient.login}", :width => '50', :height => '50'), commentable_url(comment)
-          %dd.fn
-            - if comment.commentable.eql?(comment.recipient)
-              %strong= :to.l + ": #{link_to comment.recipient.login, commentable_url(comment)}".html_safe
-            - else
-              %strong= :on_commentable.l + ": #{link_to comment.commentable_name, commentable_url(comment)} (#{comment.commentable_type.l})".html_safe
-          %dd
-            %p= truncate_words( comment.comment, 10, '...').html_safe
-
-
-  - unless @photo_comments.empty?
-    -box :class => 'yui-g alt', :id => 'photo_comments' do
-      %h3=:photo_comments.l
-      - @photo_comments.each do |comment|
-        %dl.vcard
-          %dt.photo
-            = link_to(image_tag((comment.user && comment.user.avatar_photo_url(:thumb) || configatron.photo.missing_thumb), :width => '50', :height => '50'), user_photo_path(@user, comment.commentable))            
-          %dd.fn= "#{comment.username}" + " " + :says.l + ":"
-          %dd
-            = truncate_words(comment.comment, 10).html_safe
-            %br
-            = link_to "&raquo; ".html_safe + :view_comment.l, user_photo_path(@user, comment.commentable) + "#comment_#{comment.id}"
-
-#yui-main
-  .yui-b
+.row
+  .span9
     - if @photos.empty? and @recent_posts.empty?
       -box :class => "alt first_alt" do 
         %h3= :small_profile.l :user => @user.login
@@ -101,3 +49,57 @@
       %a#newest_comment
       = render :partial => 'comments/comment', :collection => @comments
       %span#more_comments_links= more_comments_links(@user)
+
+
+  .span3
+
+    = render :partial => 'profile_user_info_sidebar', :locals => {:user => @user}
+
+    - if @user.description
+      -box :id => "about_me" do
+        %h3
+          =:about_me.l
+        %p= @user.description.html_safe
+
+    -box :class => 'alt', :id => 'friends' do
+      %h3
+        =:my_friends.l
+        = link_to "(#{@friend_count})", accepted_user_friendships_path(@user) if @friend_count > 5
+      %p
+        = link_to "&raquo; #{:invite_a_friend.l :site => configatron.community_name}".html_safe, invite_user_path(@user) if @is_current_user
+        %br= link_to "&raquo; #{:view_all_my_friend_requests.l} (#{@pending_friendships_count})".html_safe, pending_user_friendships_path(@user) if @is_current_user
+      - @accepted_friendships.each do |user|
+        =render :partial => "users/sidebar_user", :locals => {:user => user}
+      -if @accepted_friendships.size > 4
+        %h6.all
+          =link_to :see_all.l, accepted_user_friendships_path(@user)
+
+    - unless @users_comments.empty?
+      -box :class => 'yui-g alt', :id => 'photo_comments' do
+        %h3=:my_recent_comments.l
+        - @users_comments.each do |comment|
+          %dl.vcard
+            %dt.photo
+              - if comment.recipient
+                = link_to image_tag(comment.recipient.avatar_photo_url(:thumb), :alt => "#{comment.recipient.login}", :width => '50', :height => '50'), commentable_url(comment)
+            %dd.fn
+              - if comment.commentable.eql?(comment.recipient)
+                %strong= :to.l + ": #{link_to comment.recipient.login, commentable_url(comment)}".html_safe
+              - else
+                %strong= :on_commentable.l + ": #{link_to comment.commentable_name, commentable_url(comment)} (#{comment.commentable_type.l})".html_safe
+            %dd
+              %p= truncate_words( comment.comment, 10, '...').html_safe
+
+
+    - unless @photo_comments.empty?
+      -box :class => 'yui-g alt', :id => 'photo_comments' do
+        %h3=:photo_comments.l
+        - @photo_comments.each do |comment|
+          %dl.vcard
+            %dt.photo
+              = link_to(image_tag((comment.user && comment.user.avatar_photo_url(:thumb) || configatron.photo.missing_thumb), :width => '50', :height => '50'), user_photo_path(@user, comment.commentable))            
+            %dd.fn= "#{comment.username}" + " " + :says.l + ":"
+            %dd
+              = truncate_words(comment.comment, 10).html_safe
+              %br
+              = link_to "&raquo; ".html_safe + :view_comment.l, user_photo_path(@user, comment.commentable) + "#comment_#{comment.id}"

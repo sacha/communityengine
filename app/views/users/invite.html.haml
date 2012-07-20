@@ -2,16 +2,8 @@
 %script{"type"=>"text/javascript", "src"=>"http://www.plaxo.com/css/m/js/basic.js"}
 %script{"type"=>"text/javascript", "src"=>"http://www.plaxo.com/css/m/js/abc_launcher.js"}
 
-.yui-b
-  -box :class => "alt first_alt" do 
-    %h3=:spread_the_word.l
-    %p
-      =:invite_message.l(:site => configatron.community_name)
-    %p
-      =:people_who_sign_up_using_your_invitation_will_automatically_be_added_as_your_friends.l
-
-#yui-main
-  .yui-b
+.row
+  .span9
     -box do 
       %h3=:invite_your_friends_to_join.l
       = form_for(:invitation, :url => user_invitations_path(:user_id => @user.id ), :html => {:class => "MainForm"} ) do |f|
@@ -29,3 +21,11 @@
           = submit_tag :send_invitations.l
           =:or.l
           = link_to :cancel.l, user_path(@user)
+  .span3
+    -box :class => "alt first_alt" do 
+      %h3=:spread_the_word.l
+      %p
+        =:invite_message.l(:site => configatron.community_name)
+      %p
+        =:people_who_sign_up_using_your_invitation_will_automatically_be_added_as_your_friends.l
+

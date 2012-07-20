@@ -5,22 +5,9 @@
 
   = error_messages_for :user
 
-  -box :class => "yui-b" do
 
-    %h3=:username.l
-    = text_field :user, :login, :size => "28"
-
-    %h3=:e_mail_address.l
-    = text_field :user, :email, :size => "28"
-
-    %h3=:password.l
-    = password_field :user, :password, :size => "28"
-
-    %label=:confirm_password.l
-    = password_field :user, :password_confirmation, :size => "28"
-
-  #yui-main
-    .yui-b
+  .row
+    .span9
     
       -box :class => 'alt first_alt' do
         = render :partial => "omniauth_connect"
@@ -62,3 +49,18 @@
           %br
           %label
             %em= :deactivate_tip.l            
+
+    .span3
+      -box :class => "yui-b" do
+
+        %h3=:username.l
+        = text_field :user, :login, :size => "28"
+
+        %h3=:e_mail_address.l
+        = text_field :user, :email, :size => "28"
+
+        %h3=:password.l
+        = password_field :user, :password, :size => "28"
+
+        %label=:confirm_password.l
+        = password_field :user, :password_confirmation, :size => "28"

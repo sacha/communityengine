@@ -1,7 +1,5 @@
-.yui-b.sidebar=render :partial => 'shared/login_sidebar'
-  
-#yui-main
-  .yui-b.main_column
+.row
+  .span9
     -box do
       %h3
         =:log_in_to_site.l(:site => configatron.community_name)
@@ -24,4 +22,5 @@
           -alt = t('sessions.new.omniauth.button_alt', :provider => provider.capitalize)
           = link_to(image_tag("auth/#{provider.to_s}_64.png", :alt => alt), "/auth/#{provider.to_s}", :title => alt)
 
+  .span3=render :partial => 'shared/login_sidebar'
         

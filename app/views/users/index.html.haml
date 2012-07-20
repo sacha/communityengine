@@ -1,10 +1,8 @@
 - @section = (params[:metro_area_id] ? 'metro_area' : 'users')
 
-.yui-b
-  = render :partial => 'users/search_options'
 
-#yui-main
-  .yui-b
+.row
+  .span9
     -box :class => "user_list" do
       %h3=:site_members.l :site => configatron.community_name
 
@@ -16,3 +14,5 @@
       
       %br.clear
       = paginate @users
+  .span3
+    = render :partial => 'users/search_options'
