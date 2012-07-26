@@ -1,8 +1,8 @@
-.yui-b
-  = render :partial => 'shared/explore'
-  = render :partial => 'shared/contact'
-#yui-main
-  .yui-b
+.row
+  .span9
     -box :class=>'entry-content page-content' do 
       %h3= @page.title
       =raw @page.body
+  .span3
+    = render :partial => 'shared/explore'
+    = render :partial => 'shared/contact'
