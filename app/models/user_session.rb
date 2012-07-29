@@ -1,4 +1,3 @@
-Authlogic::Session::Base.after_save.delete_if{ |callback| callback.method == :save_cookie }
 class UserSession < Authlogic::Session::Base
   find_by_login_method :find_by_login_or_email
   remember_me_for 2.weeks
