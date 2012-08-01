@@ -10,7 +10,7 @@ class Authorization < ActiveRecord::Base
       auth.assign_account_info(hash)
       auth.save
       auth
-    else
+    elsif existing_user
       create_from_hash(hash, existing_user)
     end
   end
